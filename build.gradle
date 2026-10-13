@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'kv'
+version = '0.1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'io.javalin:javalin:6.7.0'
+    runtimeOnly 'org.slf4j:slf4j-simple:2.0.17'
+
+    testImplementation platform('org.junit:junit-bom:5.11.4')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+// Target Java 21 bytecode regardless of the JDK Gradle runs on
+tasks.withType(JavaCompile).configureEach {
+    options.release = 21
+}
+
+application {
+    mainClass = 'kv.api.Main'
+}
+
+test {
+    useJUnitPlatform()
+}
